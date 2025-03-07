@@ -36,7 +36,6 @@ text_rect.center = (screen.get_width() // 2, 50)
 print(get_full_filepaths("music"))
 
   
-
 # Create a list of buttons for each song
 # Create buttons for each song
 music = get_full_filepaths("music")
@@ -52,7 +51,9 @@ for song in music:
         y += 100
         x = 50
 
-def main():
+
+
+def Main():
     # Main game loop
     while True:
         screen.fill((255, 0, 0))  # Fill the screen with red color
@@ -63,6 +64,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:  # Mouse click event
                 for button in button_list:
                     button.is_clicked()# Check if any button is clicked
+
                     
         
         for button in button_list:
@@ -72,4 +74,4 @@ def main():
         
         pygame.display.update()  # Update the display
 
-main()
+Main()
