@@ -1,4 +1,5 @@
 import pygame
+
 pygame.init()
 
 # Function to extract the song name from the file path
@@ -7,27 +8,8 @@ def get_song_name(song):
     song = song.split(".")[0]   # Remove the file extension
     return song
 
-def show_song(song):
-     screen = pygame.display.get_surface()
-     back = Button(250,400, 100, 50, "back.mp3")
-     while True:
-        screen.fill((255, 0, 0))  # Fill the screen with red color
-        for event in pygame.event.get():  # Event handling
-            if event.type == pygame.QUIT:  # Quit event
-                pygame.quit()
 
-            if event.type == pygame.MOUSEBUTTONDOWN:  # Mouse click event
-                back.back_clicked()
-        font = pygame.font.Font(None, 36)
-        text = font.render('Now Playing: '+ song, True, (255, 255, 255))
-        text_rect = text.get_rect()
-        text_rect.center = (screen.get_width() // 2, 50)
-        
-        screen.blit(text, text_rect)  # Draw the title text
-        back.draw(screen)
-        
-        pygame.display.update()  # Update the display 
-        
+
 # Button class to create and manage buttons
 class Button():
     def __init__(self, x, y, width, height, song):
@@ -49,9 +31,6 @@ class Button():
         if self.rect.collidepoint(pygame.mouse.get_pos()):  # Check if button is clicked
             pygame.mixer.stop()  # Pause any currently playing song
             self.song.play()  # Play the button's song
-            show_song(self.text)
+            return True
         return False
     
-    def back_clicked(self):
-        if self.rect.collidepoint(pygame.mouse.get_pos()):  # Check if button is clicked
-        

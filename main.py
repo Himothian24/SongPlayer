@@ -1,6 +1,7 @@
 # Import the modules
 import pygame
 import button
+import time
 import os
 
 # Initialize Pygame and the mixer module
@@ -52,7 +53,6 @@ for song in music:
         x = 50
 
 
-
 def Main():
     # Main game loop
     while True:
@@ -63,9 +63,8 @@ def Main():
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Mouse click event
                 for button in button_list:
-                    button.is_clicked()# Check if any button is clicked
-
-                    
+                    if button.is_clicked():# Check if any button is clicked 
+                        show_song(button.text)
         
         for button in button_list:
             button.draw(screen)  # Draw all buttons
@@ -73,5 +72,32 @@ def Main():
         screen.blit(text, text_rect)  # Draw the title text
         
         pygame.display.update()  # Update the display
+        
+def show_song(song):
+     back = button.Button(250,400, 100, 50, "back.mp3")
+     song_percentage = 0
+     while True:
+        screen.fill((255, 0, 0))  # Fill the screen with red color
+        song_percentage = time.time()
+        pygame.draw.rect(screen, (150=,150,150), [200, 200, 400, 25], 0, 10)
+        pygame.draw.rect(screen, (255,255,255), [200, 200, 400, 25], 0, 10)
+        for event in pygame.event.get():  # Event handling
+            if event.type == pygame.QUIT:  # Quit event
+                pygame.quit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:  # Mouse click event
+                if back.is_clicked():
+                    Main()
+
+        font = pygame.font.Font(None, 36)
+        text = font.render('Now Playing: '+ song, True, (255, 255, 255))
+        text_rect = text.get_rect()
+        text_rect.center = (screen.get_width() // 2, 50)
+        
+        screen.blit(text, text_rect)  # Draw the title text
+        back.draw(screen)
+        
+        pygame.display.update()  # Update the display 
+
 
 Main()
